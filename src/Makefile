@@ -1,7 +1,7 @@
 CC:=cc
 CFLAGS:=-Wall -Wextra -O0 -g -Iinclude -std=c99 -pthread -I.
 LDFLAGS:=-pthread -lpam
-SRC:=$(shell find flac/ -type f -name '*.c' ! -name 'Plugs/*.c')
+SRC:=$(shell find . -type f -name '*.c' ! -name 'Plugs/*.c')
 OBJ:=$(patsubst %c,%o,$(SRC))
 
 all: fpkg
