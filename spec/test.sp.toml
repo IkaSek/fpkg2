@@ -1,0 +1,16 @@
+[spec]
+file = "test.sp.h"
+specname = "TestSpec"
+FELISINTERNALS = false
+[includes]
+
+[decl.Enum."Foobar"]
+Name = "Foobar"
+Fields = { "A" = 1, "B" = 2 }
+[decl.Enum."Barfoo"]
+Fields = { "C" = 2 }
+[decl.Define.Macro."FOOBAR_COMPAT"]
+Value = 1
+[decl.Define.Function."x"]
+Args."a" = 1
+Value = "#a"

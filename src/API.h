@@ -79,8 +79,8 @@ struct API_IAllocator {
   void *ctx;
 };
 
-const API_IAllocator libc_alloc = {(API_IAllocator_Alloc)malloc,
-                                   (API_IAllocator_Free)free, .ctx = NULL};
+FPKG_API_PRIVATE const API_IAllocator libc_alloc = {
+    (API_IAllocator_Alloc)malloc, (API_IAllocator_Free)free, .ctx = NULL};
 
 typedef struct API_Arena API_Arena;
 struct API_Arena {
