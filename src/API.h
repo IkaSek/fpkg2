@@ -13,9 +13,19 @@
 #define FPKG_API_EXTRN extern
 #define FPKG_API_INLN inline
 
-FPKG_API_PUBLIC uint64_t API_min(uint64_t a, uint64_t b);
-FPKG_API_PUBLIC uint64_t API_max(uint64_t a, uint64_t b);
-FPKG_API_PUBLIC uint64_t API_nearest_pow2(uint64_t a);
+typedef long long INT;
+typedef unsigned long long UINT;
+
+typedef unsigned char UCHAR;
+
+typedef float FLOAT32;
+typedef long double FLOAT64;
+
+FPKG_API_PUBLIC UINT API_min(UINT a, UINT b);
+FPKG_API_PUBLIC UINT API_max(UINT a, UINT b);
+FPKG_API_PUBLIC UINT API_nearest_pow2(UINT a);
+FPKG_API_PUBLIC UINT API_floor(FLOAT64 a);
+FPKG_API_PUBLIC UINT API_ceil(FLOAT64 a);
 
 #define FN_PTR(tp, name) tp(*name)
 typedef FN_PTR(int, API_AsRoot_callback)(void *);
@@ -41,28 +51,6 @@ FPKG_API_PUBLIC int API_AsRoot_init();
  */
 FPKG_API_PUBLIC int API_AsRoot(API_AsRoot_callback cb, void *arg);
 
-/**
- * @brief Integer type for internal integer data.
- *
- * This type represents an internal integer value used in various API functions.
- * It doesn't signify signedness, even though it can represent both positive and
- * negative values.
- */
-typedef int INTC;
-
-/**
- * @brief Represents a 64-bit signed integer value.
- *
- *  This type represents an internal integer value used in various API
- *  functions. It doesn't signify signedness, even though it can represent both
- *  positive and negative values.
- */
-typedef long LONGC;
-
-typedef unsigned long long UINT;
-
-typedef unsigned char UCHAR;
-
 #define NOT ~
 #define AND &
 #define OR |
@@ -79,7 +67,7 @@ struct API_IAllocator {
   void *ctx;
 };
 
-FPKG_API_PRIVATE const API_IAllocator libc_alloc = {
+FPKG_API_PRIVATE static const API_IAllocator libc_alloc = {
     (API_IAllocator_Alloc)malloc, (API_IAllocator_Free)free, .ctx = NULL};
 
 typedef struct API_Arena API_Arena;
@@ -102,6 +90,9 @@ struct API_ByteArray {
 FPKG_API_PUBLIC void API_ByteArray_push(API_ByteArray *ba, void *data);
 FPKG_API_PUBLIC void API_ByteArray_pop(API_ByteArray *ba);
 FPKG_API_PUBLIC void API_ByteArray_free(API_ByteArray *ba);
+FPKG_API_PUBLIC API_ByteArray API_ByteArray_dup(const API_ByteArray ba,
+                                                API_IAllocator alloc);
+FPKG_API_PUBLIC void API_ByteArray_sort(API_ByteArray *ba);
 
 FPKG_API_PUBLIC size_t API_ucstrlen(const UCHAR *s);
 FPKG_API_PUBLIC UCHAR *API_ucstrdup(API_IAllocator ialloc, const UCHAR *s);
