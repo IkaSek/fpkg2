@@ -1,7 +1,7 @@
 #include <API.h>
 #include <API_Errors.sp.h>
 
-FPKG_API_PUBLIC const char *API_strerror(INTC error_code) {
+FPKG_API_PUBLIC const char *API_strerror(INT error_code) {
   switch (error_code) {
   case API_ERROR_OK:
     return API_ERROR_OK_STR;

@@ -49,6 +49,7 @@ class SpecParser:
         if "Struct" in decl:
             for struct_name, struct_info in decl["Struct"].items():
                 field_lines = ""
+                     
                 for field_name, field_type in struct_info["Fields"].items():
                     line = Template("    $TYPE $NAME;\n").substitute(TYPE=field_type, NAME=field_name)
                     field_lines += line

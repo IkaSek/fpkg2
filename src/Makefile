@@ -15,4 +15,4 @@ fpkg: $(OBJ)
 	$(CC) $(LDFLAGS) $(CFLAGS) $(OBJ) -o fpkg
 .PHONY: all
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) fpkg

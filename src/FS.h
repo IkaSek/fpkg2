@@ -55,5 +55,5 @@ FPKG_API_PUBLIC char *FS_Dir_Iter_next(FS_Dir_Iter *iter);
 FPKG_API_PUBLIC void FS_Dir_Iter_close(FS_Dir_Iter *iter);
 
 FPKG_API_PUBLIC int FS_sfcp(char *from, char *to);
-FPKG_API_PUBLIC void FS_mktempd(UCHAR *buf, size_t buf_max, size_t n);
+FPKG_API_PUBLIC void FS_mktempd(char *buf, size_t buf_max, size_t n);
 #endif
