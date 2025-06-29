@@ -47,7 +47,7 @@ FPKG_API_PUBLIC int API_ucstrcmp(const UCHAR *s1, const UCHAR *s2) {
     s2++;
   }
 
-  INTC res = *s1 - *s2;
+  INT res = *s1 - *s2;
   if (res < 0)
     return -1;
   else if (res > 0)

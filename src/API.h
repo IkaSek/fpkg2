@@ -12,6 +12,13 @@
 #define FPKG_API_PRIVATE __attribute__((visibility("hidden")))
 #define FPKG_API_EXTRN extern
 #define FPKG_API_INLN inline
+#define STRINGIFY(x) #x
+#define FPKG_API_ERROR(str) _Pragma(STRINGIFY(GCC error str))
+#define FPKG_API_WARN(str) _Pragma(STRINGIFY(message str))
+#define PLACEHOLDER_ERR FPKG_API_ERROR("Placeholder value, fix this!")
+#define PLACEHOLDER_WARN                                                       \
+  FPKG_API_WARN("Placeholder value, fix this. Low severity.")
+#define PLACEHOLDER_VALUE 0
 
 typedef long long INT;
 typedef unsigned long long UINT;
@@ -80,6 +87,8 @@ FPKG_API_PUBLIC void *API_Arena_realloc(API_Arena *a, void *p, size_t olds,
                                         size_t s);
 FPKG_API_PUBLIC void API_Arena_destroy(API_Arena *a);
 
+typedef struct API_i2malloc API_i2malloc_t;
+
 typedef struct API_ByteArray API_ByteArray;
 struct API_ByteArray {
   size_t blen;
@@ -94,11 +103,17 @@ FPKG_API_PUBLIC API_ByteArray API_ByteArray_dup(const API_ByteArray ba,
                                                 API_IAllocator alloc);
 FPKG_API_PUBLIC void API_ByteArray_sort(API_ByteArray *ba);
 
+/* ucs (UCHAR *) is the same as cs (char *) in memory, though,    */
+/* the first one is used in binary formats and parsing, the       */
+/* other, in classic strings                                      */
 FPKG_API_PUBLIC size_t API_ucstrlen(const UCHAR *s);
 FPKG_API_PUBLIC UCHAR *API_ucstrdup(API_IAllocator ialloc, const UCHAR *s);
 FPKG_API_PUBLIC int API_ucstrcmp(const UCHAR *s1, const UCHAR *s2);
 FPKG_API_PUBLIC UCHAR *API_ucstrcpy(UCHAR *restrict dest, size_t dest_len,
                                     const UCHAR *restrict src);
 FPKG_API_PUBLIC size_t API_ucnstrlen(const UCHAR *s);
+#define ucstocs(uc) (char *)uc
+
+FPKG_API_PUBLIC char *API_cslib_strdup(API_IAllocator alloc, char *s);
 
 #endif
