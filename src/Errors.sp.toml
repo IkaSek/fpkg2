@@ -2,8 +2,7 @@
 specname = "API_Errors"
 file = "API_Errors.sp.h"
 FELISINTERNALS = true
-[includes]
-"<API.h>" = 0
+[includes."<API.h>"]
 
 [decl.Enum."API_Error"]
 StringMapping = true
@@ -15,6 +14,6 @@ Fields."InvalidPermissions" = 4
 Fields."NotFound" = 5
 
 [decl.Function."API_strerror"]
-Params."error_code" = "INTC"
+Params."error_code" = "INT"
 ReturnType = "const char *"
 Attributes = "FPKG_API_PUBLIC"
