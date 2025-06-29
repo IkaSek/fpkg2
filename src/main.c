@@ -1,4 +1,5 @@
 #include <API.h>
+#include <extrn/tomlc17.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -18,16 +19,17 @@ void __shift_argv(char **argv[], int *argc) {
 #define COMMAND_LIST 0x0005
 #define COMMAND_SEARCH 0x0006
 
-char *G_root = NULL;
+#define FLAGS_CONF 0x0001
 
-int Program_install(int argc, char *argv[], INTC flags) {}
+toml_result_t G_config;
+
+int Program_install(int argc, char *argv[], INT flags) {}
 
 int main(int argc, char *argv[]) {
-  G_root = "/";
 
-  INTC command =
+  INT command =
       COMMAND_HELP; /* Change this when the user specifies any commands */
-  INTC flags = 0;
+  INT flags = 0;
   SHIFT_ARGV(&argv, &argc);
   for (int i = 0; i < argc; ++i) {
     if (!strcmp(argv[i], "help") || !strcmp(argv[i], "h")) {
@@ -44,13 +46,13 @@ int main(int argc, char *argv[]) {
       command = COMMAND_LISTDB;
     } else if (strcmp(argv[i], "search") == 0 || strcmp(argv[i], "s") == 0) {
       command = COMMAND_SEARCH;
+    } else if (strcmp(argv[i], "-c") == 0 && i + 1 <= argc) {
+      G_config = toml_parse_file_ex(argv[i++]);
     }
 
     if (command == COMMAND_INSTALL) {
       /* TODO: Implement the INSTALL flags */
     }
-
-    SHIFT_ARGV(&argv, &argc);
   }
 
   if (command == COMMAND_HELP) {
