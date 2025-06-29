@@ -4,7 +4,7 @@
 #include <API.h>
 #include <stdio.h>
 
-#define PLUG_ACTOR_OPT_EXCLUDEOTHERS 0x00010001
+#define PLUG_ACTOR_OPT_EXCLUDEOTHERS 0x00010000
 #define PLUG_ACTOR_DOWNLOADER 0x00000001
 #define PLUG_ACTOR_DECOMPRESSOR 0x00000002
 #define PLUG_ACTOR_HOOKHANDLER 0x00000003
@@ -20,10 +20,10 @@ struct Plugin {
   const char *name;
   const char *version;
 
-  INTC actor;
+  INT actor;
   fpkg_plugs_act_t act;
   fpkg_plugs_debug_t debug;
-  INTC opts;
+  INT opts;
 };
 typedef FN_PTR(Plugin *, fpkg_plugs_get_hndl_t)();
 

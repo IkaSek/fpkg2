@@ -22,10 +22,10 @@ PLUG_CONSTRUCTOR void init() {
   curlm_handle = curl_multi_init();
 }
 
-struct url_file {
+struct url_file_pair {
   const char *url;
   const FILE *file;
-};
+} __attribute__((packed));
 
 size_t act_write(char *data, size_t s, size_t nmemb, void *userdata) {
   if (plug_debug) {
@@ -40,7 +40,7 @@ int act(size_t len, void *VP_url_file) {
   int curlwait;
   for (size_t pp = 0; pp < len;) {
     for (size_t i = 0; i < PLUG_CONFIG_HANDLES_N; ++i) {
-      struct url_file uf = *(struct url_file *)VP_url_file;
+      struct url_file_pair uf = *(struct url_file_pair *)VP_url_file;
       curl_easy_setopt(curl_handles[i % PLUG_CONFIG_HANDLES_N], CURLOPT_URL,
                        uf.url);
       curl_easy_setopt(curl_handles[i % PLUG_CONFIG_HANDLES_N],
