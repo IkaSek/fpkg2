@@ -1,13 +1,13 @@
 #ifndef __PKG_H__
 #define __PKG_H__
 
-#include "API.h"
-
 typedef struct Pkg Pkg;
 
-#include "API.h"
+#include <API.h>
+#include <Repo.h>
 
-Pkg *Pkg_init(API_IAllocator ialloc);
+Pkg *Pkg_init(API_IAllocator ialloc, const Repo *repo);
+const Repo *Pkg_get_repo(Pkg *pkg);
 void Pkg_set_name(Pkg *pkg, UCHAR *name);
 UCHAR *Pkg_get_name(const Pkg *pkg);
 void Pkg_set_version(Pkg *pkg, UCHAR *version);

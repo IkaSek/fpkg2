@@ -36,7 +36,7 @@ FPKG_API_PRIVATE void __Repo_bdata_pkgs(UCHAR *uc, Repo *r, UINT pkgs_len) {
     UINT bytecode = *(UINT *)uc;
     uc += sizeof(UINT);
 
-    Pkg *p = Pkg_init(r->iarena);
+    Pkg *p = Pkg_init(r->iarena, r);
     API_ByteArray_push(&r->pkgs, p);
 
     if (bytecode == __REPO_BDATA_REPO_PKG_AUTHOR) {
@@ -103,3 +103,5 @@ FPKG_API_PUBLIC Pkg *Repo_find_pkg(Repo *repo, Pkg *template) {
   return *(Pkg **)bsearch(template, repo->pkgs.buf, repo->pkgs.blen,
                           sizeof(Pkg *), cmppkgs);
 }
+
+FPKG_API_PUBLIC UCHAR *Repo_get_url(const Repo *repo) { return repo->url; }
